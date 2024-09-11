@@ -10,6 +10,14 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PreviousOrSameDayOfMonthTests {
+    @ParameterizedTest
+    @MethodSource({"sixteenth", "firstToSixteenth", "seventeenthToThirtieth", "inPreviousYear"})
+    void test(int dayOfMonth, LocalDate given, LocalDate expected) {
+        var adjuster = new PreviousOrSame(dayOfMonth);
+
+        assertEquals(expected, given.with(adjuster));
+    }
+
     public static Stream<Arguments> sixteenth() {
         var expected = LocalDate.of(2024, 9, 16);
         return Stream.of(
@@ -31,11 +39,11 @@ public class PreviousOrSameDayOfMonthTests {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource({"sixteenth", "firstToSixteenth", "seventeenthToThirtieth"})
-    void test(int dayOfMonth, LocalDate given, LocalDate expected) {
-        var adjuster = new PreviousOrSame(dayOfMonth);
-
-        assertEquals(expected, given.with(adjuster));
+    public static Stream<Arguments> inPreviousYear() {
+        var expected = LocalDate.of(2023, 12, 16);
+        return IntStream.range(1, 16).mapToObj(day ->
+                Arguments.of(expected.getDayOfMonth(), LocalDate.of(2024, 1, day), expected)
+        );
     }
+
 }
