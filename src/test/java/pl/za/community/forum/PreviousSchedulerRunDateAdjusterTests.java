@@ -45,9 +45,17 @@ class PreviousSchedulerRunDateAdjusterTests {
         );
     }
 
+    public static Stream<Arguments> inPreviousYear() {
+        var expected = LocalDate.of(2023, 12, 25);
+        return IntStream.range(1, 16).mapToObj(day ->
+                Arguments.of(LocalDate.of(2024, 1, day), expected)
+        );
+    }
+
     @ParameterizedTest
     @MethodSource({"sixteenth", "twentyFifth",
-            "firstToFifteenth", "seventeenthToTwentyFourth", "twentySixthToThirtieth"})
+            "firstToFifteenth", "seventeenthToTwentyFourth", "twentySixthToThirtieth",
+            "inPreviousYear"})
     void test(LocalDate given, LocalDate expected) {
         assertEquals(expected, given.with(testedAdjuster));
     }
