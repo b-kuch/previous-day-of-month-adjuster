@@ -1,5 +1,3 @@
-package pl.za.community.forum;
-
 import java.time.temporal.ChronoField;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;

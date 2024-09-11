@@ -1,5 +1,3 @@
-package pl.za.community.forum;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,6 +9,14 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PreviousSchedulerRunDateAdjusterTests {
+    @ParameterizedTest
+    @MethodSource({"sixteenth", "twentyFifth",
+            "firstToFifteenth", "seventeenthToTwentyFourth", "twentySixthToThirtieth",
+            "inPreviousYear"})
+    void testDates(LocalDate given, LocalDate expected) {
+        assertEquals(expected, given.with(testedAdjuster));
+    }
+
     private final PreviousSchedulerRunDateAdjuster testedAdjuster = new PreviousSchedulerRunDateAdjuster();
 
     public static Stream<Arguments> sixteenth() {
@@ -52,11 +58,4 @@ class PreviousSchedulerRunDateAdjusterTests {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource({"sixteenth", "twentyFifth",
-            "firstToFifteenth", "seventeenthToTwentyFourth", "twentySixthToThirtieth",
-            "inPreviousYear"})
-    void test(LocalDate given, LocalDate expected) {
-        assertEquals(expected, given.with(testedAdjuster));
-    }
 }
