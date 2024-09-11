@@ -1,7 +1,7 @@
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import pl.za.community.forum.PreviousOrSame;
+import pl.za.community.forum.PreviousOrSameDayOfMonth;
 
 import java.time.LocalDate;
 import java.util.stream.IntStream;
@@ -9,11 +9,11 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PreviousOrSameDayOfMonthTests {
+public class PreviousOrSameDayOfMonthDayOfMonthTests {
     @ParameterizedTest
     @MethodSource({"sixteenth", "firstToSixteenth", "seventeenthToThirtieth", "inPreviousYear"})
     void test(int dayOfMonth, LocalDate given, LocalDate expected) {
-        var adjuster = new PreviousOrSame(dayOfMonth);
+        var adjuster = new PreviousOrSameDayOfMonth(dayOfMonth);
 
         assertEquals(expected, given.with(adjuster));
     }

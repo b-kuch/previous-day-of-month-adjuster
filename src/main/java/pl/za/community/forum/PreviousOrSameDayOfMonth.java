@@ -6,10 +6,10 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
 
 
-public class PreviousOrSame implements TemporalAdjuster {
+public class PreviousOrSameDayOfMonth implements TemporalAdjuster {
     private final int dayOfMonth;
 
-    public PreviousOrSame(int dayOfMonth) {
+    public PreviousOrSameDayOfMonth(int dayOfMonth) {
         this.dayOfMonth = dayOfMonth;
     }
 
